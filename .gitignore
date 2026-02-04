@@ -60,3 +60,4 @@ Thumbs.db
 Assets/Firebase/Editor
 hexmatch3.sln.DotSettings.user
 unity-custom-play-button-1.0
+*.user
