@@ -1,8 +1,7 @@
 using UnityEngine;
 using ZooWorld.Animals.Movement;
-using ZooWorld.Foundation;
 
-namespace ZooWorld.Animals.Config
+namespace ZooWorld.Game.Behaviours.Config
 {
     /// <summary>
     /// Concrete configuration for Snake (predator that moves linearly).

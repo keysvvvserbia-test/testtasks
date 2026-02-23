@@ -1,5 +1,4 @@
 using UnityEngine;
-using ZooWorld.Foundation;
 
 namespace ZooWorld.Animals.Movement
 {
@@ -16,11 +15,8 @@ namespace ZooWorld.Animals.Movement
             _jumpDistance = jumpDistance;
         }
 
-        public void Tick(IAnimal animal, float deltaTime)
+        public void Move(Transform transform, float deltaTime)
         {
-            if (!animal.IsAlive)
-                return;
-
             _timer += deltaTime;
             if (!(_timer >= _intervalSeconds))
                 return;
@@ -38,7 +34,7 @@ namespace ZooWorld.Animals.Movement
             dir.Normalize();
 
             var jump = dir * _jumpDistance;
-            this.MoveTowards(animal.Transform, jump);
+            this.MoveTowards(transform, jump);
         }
     }
 }

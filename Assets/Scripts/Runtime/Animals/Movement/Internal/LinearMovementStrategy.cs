@@ -1,5 +1,4 @@
 using UnityEngine;
-using ZooWorld.Foundation;
 
 namespace ZooWorld.Animals.Movement
 {
@@ -18,20 +17,17 @@ namespace ZooWorld.Animals.Movement
             _directionTimer = directionChangeInterval;
         }
 
-        public void Tick(IAnimal animal, float deltaTime)
+        public void Move(Transform transform, float deltaTime)
         {
-            if (!animal.IsAlive)
-                return;
-
             _directionTimer += deltaTime;
             if (_directionTimer >= _directionChangeInterval)
             {
                 ChangeDirection();
                 _directionTimer = 0f;
             }
-            
+
             var move = _currentDirection * (_unitsPerSecond * deltaTime);
-            this.MoveTowards(animal.Transform, move);
+            this.MoveTowards(transform, move);
         }
 
         private void ChangeDirection()
@@ -39,10 +35,12 @@ namespace ZooWorld.Animals.Movement
             var x = Random.Range(-1f, 1f);
             var z = Random.Range(-1f, 1f);
             _currentDirection = new Vector3(x, 0f, z);
+
             if (_currentDirection.sqrMagnitude < 0.01f)
             {
                 _currentDirection = Vector3.forward;
             }
+
             _currentDirection.Normalize();
         }
     }

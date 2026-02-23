@@ -175,7 +175,7 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &5320149992941800215
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -228,3 +228,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ZooWorld.UI.HintView
   _txtHint: {fileID: 6987866722180520553}
   _showDuration: 1
+  _screenOffset: {x: 0, y: 30}

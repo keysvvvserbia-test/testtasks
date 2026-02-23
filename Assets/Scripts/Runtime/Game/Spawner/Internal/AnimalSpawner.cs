@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Zenject;
-using ZooWorld.Animals;
-using ZooWorld.Foundation;
+using ZooWorld.Game.Behaviours;
+using ZooWorld.Game.Behaviours.Config;
 using Random = UnityEngine.Random;
 
 namespace ZooWorld.Game

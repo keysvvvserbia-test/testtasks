@@ -1,8 +1,9 @@
 using UnityEngine;
 using ZooWorld.Animals.Movement;
 using ZooWorld.Foundation;
+using ZooWorld.Game.Behaviours;
 
-namespace ZooWorld.Animals.Config
+namespace ZooWorld.Game.Behaviours.Config
 {
     /// <summary>
     /// Concrete configuration for Frog (prey that moves by jumps).

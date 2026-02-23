@@ -9,10 +9,10 @@ namespace ZooWorld.UI
     {
         [SerializeField] private HintView _hintPrefab;
         [SerializeField] private Camera _worldCamera;
-            
+
         private ICollisionResolver _collisionResolver;
         private ViewFactory _viewFactory;
-        
+
         [Inject]
         private void Resolve(ICollisionResolver collisionResolver)
         {
@@ -41,11 +41,16 @@ namespace ZooWorld.UI
             var hint = (HintView)_viewFactory.Spawn(_hintPrefab.name, _hintPrefab, transform);
             hint.Id = _hintPrefab.name;
             hint.Init(HideHint);
-            hint.AttachToWorldTarget(
-                hitData.Killer.Transform,
-                _worldCamera != null ? _worldCamera : Camera.main,
+            hint.AttachToWorldTarget(hitData.Killer.Transform,
+                GetCamera(),
                 transform as RectTransform);
+
             hint.Show();
+        }
+
+        private Camera GetCamera()
+        {
+            return _worldCamera != null ? _worldCamera : Camera.main;
         }
 
         private void HideHint(string instanceId, BaseView hintView)

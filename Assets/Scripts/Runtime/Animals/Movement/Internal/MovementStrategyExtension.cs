@@ -1,5 +1,4 @@
 using UnityEngine;
-using ZooWorld.Foundation;
 
 namespace ZooWorld.Animals.Movement
 {

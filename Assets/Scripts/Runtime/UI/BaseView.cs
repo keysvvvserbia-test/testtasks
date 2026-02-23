@@ -6,7 +6,7 @@ namespace ZooWorld.UI
     public abstract class BaseView : MonoBehaviour
     {
         private Action<string, BaseView> _hideAction;
-        
+
         public string Id { get; set; }
 
         public void Init(Action<string, BaseView> hideAction)

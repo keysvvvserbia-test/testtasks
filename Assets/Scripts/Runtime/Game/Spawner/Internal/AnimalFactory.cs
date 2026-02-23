@@ -1,6 +1,6 @@
 using UnityEngine;
 using ZooWorld.Foundation;
-using ZooWorld.Animals;
+using ZooWorld.Game.Behaviours;
 
 namespace ZooWorld.Game
 {

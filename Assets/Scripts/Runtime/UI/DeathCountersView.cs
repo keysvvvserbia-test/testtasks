@@ -2,16 +2,23 @@ using TMPro;
 using UniRx;
 using UnityEngine;
 using Zenject;
+using ZooWorld.Foundation;
 using ZooWorld.Game;
 
 namespace ZooWorld.UI
 {
-    public sealed class DeathCountersView : MonoBehaviour
+    public sealed class DeathCountersView : BaseAutoInjectableMonoComponent
     {
         [SerializeField] private TMP_Text _preyCountText;
         [SerializeField] private TMP_Text _predatorCountText;
 
-        [Inject] private IAnimalRegistry _registry;
+        private IAnimalRegistry _registry;
+
+        [Inject]
+        private void Resolve(IAnimalRegistry registry)
+        {
+            _registry = registry;
+        }
 
         private void Start()
         {

@@ -1,7 +1,8 @@
 using UnityEngine;
+using ZooWorld.Animals;
 using ZooWorld.Animals.Movement;
 
-namespace ZooWorld.Animals
+namespace ZooWorld.Game.Behaviours.Config
 {
     public abstract class AnimalConfig : ScriptableObject
     {
@@ -11,7 +12,7 @@ namespace ZooWorld.Animals
         public string Id => name;
         public DietType Diet => _diet;
         public AnimalBehaviour Original => _original;
-        
+
         public abstract IMovementStrategy CreateMovementStrategy();
     }
 }

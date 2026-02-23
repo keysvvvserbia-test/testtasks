@@ -1,16 +1,14 @@
 using System;
 using UnityEngine;
 using Zenject;
+using ZooWorld.Animals;
 using ZooWorld.Animals.Movement;
 using ZooWorld.CollisionResolver;
 using ZooWorld.Foundation;
-using ZooWorld.Game;
+using ZooWorld.Game.Behaviours.Config;
 
-namespace ZooWorld.Animals
+namespace ZooWorld.Game.Behaviours
 {
-    /// <summary>
-    /// MonoBehaviour that represents one animal in the world. Implements IAnimal and delegates movement to strategy.
-    /// </summary>
     [RequireComponent(typeof(Rigidbody))]
     public sealed class AnimalBehaviour : BaseAutoInjectableMonoComponent, IAnimal
     {
@@ -19,7 +17,6 @@ namespace ZooWorld.Animals
 
         private DietType _diet;
         private IMovementStrategy _movementStrategy;
-        private Rigidbody _rb;
         private bool _alive = true;
         private Action<string, AnimalBehaviour> _despawnCallback;
         private AnimalConfig _config;
@@ -35,6 +32,37 @@ namespace ZooWorld.Animals
         {
             _collisionResolver = collisionResolver;
             _registry = registry;
+        }
+
+        private void OnEnable()
+        {
+            if (_alive)
+                return;
+
+            transform.localPosition = _spawnPosition;
+            transform.localRotation = _spawnRotation;
+            _alive = true;
+        }
+
+        private void Update()
+        {
+            if (!_alive)
+                return;
+
+            var dt = Time.deltaTime;
+            _movementStrategy?.Move(transform, dt);
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (!_alive)
+                return;
+
+            var otherAnimal = other.gameObject.GetComponent<AnimalBehaviour>();
+            if (otherAnimal != null && otherAnimal.IsAlive)
+            {
+                _collisionResolver.Resolve(this, otherAnimal);
+            }
         }
 
         public void Initialize(Vector3 position,
@@ -54,42 +82,11 @@ namespace ZooWorld.Animals
             gameObject.SetActive(true);
         }
 
-        private void OnEnable()
-        {
-            if (_alive)
-                return;
-            
-            transform.localPosition = _spawnPosition;
-            transform.localRotation = _spawnRotation;
-            _alive = true;
-        }
-
-        private void Update()
+        public void Die()
         {
             if (!_alive)
                 return;
-            
-            var dt = Time.deltaTime;
-            _movementStrategy?.Tick(this, dt);
-        }
 
-        private void OnCollisionEnter(Collision other)
-        {
-            if (!_alive) 
-                return;
-            
-            var otherAnimal = other.gameObject.GetComponent<AnimalBehaviour>();
-            if (otherAnimal != null && otherAnimal.IsAlive)
-            {
-                _collisionResolver.Resolve(this, otherAnimal);
-            }
-        }
-
-        public void Die()
-        {
-            if (!_alive) 
-                return;
-            
             _alive = false;
             _registry.UnregisterAndCountDeath(this);
 
@@ -98,7 +95,7 @@ namespace ZooWorld.Animals
                 _despawnCallback(_config.Id, this);
                 return;
             }
-            
+
             Destroy(gameObject);
         }
 
@@ -107,7 +104,7 @@ namespace ZooWorld.Animals
             if (!_alive)
                 return;
 
-            Debug.Log($"Collision!!");
+            Debug.Log("Kill!!");
         }
 
         public void Collision()
@@ -115,7 +112,8 @@ namespace ZooWorld.Animals
             if (!_alive)
                 return;
 
-            Debug.Log($"Collision!!");
+            _movementStrategy.Move(transform, 1f);
+            Debug.Log("Collision!!");
         }
     }
 }

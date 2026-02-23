@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace  ZooWorld.Animals.Movement
 {
     public interface IMovementStrategy
     {
-        void Tick(IAnimal animal, float deltaTime);
+        void Move(Transform animal, float deltaTime);
     }
 }
