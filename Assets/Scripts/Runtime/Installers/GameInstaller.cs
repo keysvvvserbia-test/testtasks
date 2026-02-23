@@ -11,9 +11,12 @@ namespace ZooWorld.Installers
     {
         [SerializeField] private Transform _spawnRoot;
         [SerializeField] private AnimalConfig[] _animalConfigs;
+        [SerializeField] private FieldConfig _fieldConfig;
 
         public override void InstallBindings()
         {
+            Container.BindInterfacesTo<FieldManager>().AsSingle();
+            Container.BindInstance(_fieldConfig).AsSingle().WhenInjectedInto<FieldManager>();
             Container.BindInterfacesAndSelfTo<AnimalRegistry>().AsSingle();
             Container.BindInterfacesTo<CollisionResolver.CollisionResolver>().AsSingle();
 

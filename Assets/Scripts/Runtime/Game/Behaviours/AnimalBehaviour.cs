@@ -14,6 +14,7 @@ namespace ZooWorld.Game.Behaviours
     {
         private ICollisionResolver _collisionResolver;
         private IAnimalRegistry _registry;
+        private IFieldManager _fieldManager;
 
         private DietType _diet;
         private IMovementStrategy _movementStrategy;
@@ -28,10 +29,11 @@ namespace ZooWorld.Game.Behaviours
         public Transform Transform => transform;
 
         [Inject]
-        private void Resolve(ICollisionResolver collisionResolver, IAnimalRegistry registry)
+        private void Resolve(ICollisionResolver collisionResolver, IAnimalRegistry registry, IFieldManager fieldManager)
         {
             _collisionResolver = collisionResolver;
             _registry = registry;
+            _fieldManager = fieldManager;
         }
 
         private void OnEnable()
@@ -73,7 +75,7 @@ namespace ZooWorld.Game.Behaviours
             _alive = false;
             _config = config;
             _diet = config.Diet;
-            _movementStrategy = config.CreateMovementStrategy();
+            _movementStrategy = config.CreateMovementStrategy(_fieldManager.Size);
             _despawnCallback = despawnCallback;
             _spawnPosition = position;
             _spawnRotation = rotation;
@@ -103,8 +105,6 @@ namespace ZooWorld.Game.Behaviours
         {
             if (!_alive)
                 return;
-
-            Debug.Log("Kill!!");
         }
 
         public void Collision()
@@ -113,7 +113,6 @@ namespace ZooWorld.Game.Behaviours
                 return;
 
             _movementStrategy.Move(transform, 1f);
-            Debug.Log("Collision!!");
         }
     }
 }

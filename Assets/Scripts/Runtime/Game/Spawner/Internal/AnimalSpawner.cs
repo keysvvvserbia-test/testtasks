@@ -10,7 +10,7 @@ namespace ZooWorld.Game
 {
     public sealed class AnimalSpawner : IAnimalSpawner
     {
-        private const int SpawnDistance = 40;
+        private readonly Vector2 _spawnRange;
 
         private readonly AnimalFactory _factory;
         private readonly AnimalConfig[] _configs;
@@ -21,10 +21,13 @@ namespace ZooWorld.Game
         [Inject]
         public AnimalSpawner(
             AnimalConfig[] configs,
+            IFieldManager fieldManager,
             Transform spawnRoot)
         {
             _configs = configs;
             _factory = new AnimalFactory(spawnRoot);
+            var fieldSize = fieldManager.Size;
+            _spawnRange = new Vector2(fieldSize.x * 0.4f, fieldSize.y * 0.4f);
         }
 
         public void StartSpawning()
@@ -69,8 +72,8 @@ namespace ZooWorld.Game
 
         private Vector3 GetSpawnPosition()
         {
-            var x = Random.Range(-SpawnDistance, SpawnDistance);
-            var z = Random.Range(-SpawnDistance, SpawnDistance);
+            var x = Random.Range(-_spawnRange.x, _spawnRange.x);
+            var z = Random.Range(-_spawnRange.y, _spawnRange.y);
             return new Vector3(x, 0f, z);
         }
     }

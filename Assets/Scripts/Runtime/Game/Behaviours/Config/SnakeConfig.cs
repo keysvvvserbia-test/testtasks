@@ -3,9 +3,6 @@ using ZooWorld.Animals.Movement;
 
 namespace ZooWorld.Game.Behaviours.Config
 {
-    /// <summary>
-    /// Concrete configuration for Snake (predator that moves linearly).
-    /// </summary>
     [CreateAssetMenu(menuName = "ZooWorld/Animals/Snake", fileName = "Snake")]
     public sealed class SnakeConfig : AnimalConfig
     {
@@ -13,9 +10,9 @@ namespace ZooWorld.Game.Behaviours.Config
         [SerializeField] private float _unitsPerSecond = 2f;
         [SerializeField] private float _directionChangeInterval = 2f;
 
-        public override IMovementStrategy CreateMovementStrategy()
+        public override IMovementStrategy CreateMovementStrategy(Vector2 fieldSize)
         {
-            return new LinearMovementStrategy(_unitsPerSecond, _directionChangeInterval);
+            return new LinearMovementStrategy(_unitsPerSecond, _directionChangeInterval, fieldSize);
         }
     }
 }

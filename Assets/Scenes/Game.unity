@@ -349,7 +349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8355190523685614697, guid: 128425856f65b4226928ad1ca67808b8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 283.26
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8355190523685614697, guid: 128425856f65b4226928ad1ca67808b8, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -581,11 +581,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb519f6c971e4b46bc8ec058864fa19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZooWorld.Installers.GameInstaller
-  _mainCamera: {fileID: 519420031}
   _spawnRoot: {fileID: 282566094}
   _animalConfigs:
   - {fileID: 11400000, guid: 2794248c18e5848fc8353c0d180e3eea, type: 2}
   - {fileID: 11400000, guid: 02e3a646fe1a343c8a4d7d16d86a426f, type: 2}
+  _fieldConfig: {fileID: 11400000, guid: 92a864a24e37d45e99d76a1859e722e7, type: 2}
 --- !u!4 &964257088
 Transform:
   m_ObjectHideFlags: 0
@@ -653,6 +653,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1515093607}
+  - component: {fileID: 1515093611}
   - component: {fileID: 1515093610}
   - component: {fileID: 1515093609}
   - component: {fileID: 1515093608}
@@ -672,8 +673,8 @@ Transform:
   m_GameObject: {fileID: 1515093606}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 100, y: 2, z: 100}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 282566094}
@@ -756,6 +757,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1515093606}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1515093611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515093606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e6be764f4d749b38f34fcb8fee794c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZooWorld.Game.FieldPresenter
 --- !u!1 &1528681941
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,7 +1069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8355190523685614697, guid: 128425856f65b4226928ad1ca67808b8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 210.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8355190523685614697, guid: 128425856f65b4226928ad1ca67808b8, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1075,8 +1088,8 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 519420032}
   - {fileID: 964257088}
+  - {fileID: 519420032}
   - {fileID: 282566094}
   - {fileID: 1528681945}
   - {fileID: 613780152}

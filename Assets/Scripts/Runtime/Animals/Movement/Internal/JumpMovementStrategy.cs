@@ -6,13 +6,15 @@ namespace ZooWorld.Animals.Movement
     {
         private readonly float _intervalSeconds;
         private readonly float _jumpDistance;
+        private readonly Vector2 _fieldSize;
 
         private float _timer;
 
-        public JumpMovementStrategy(float intervalSeconds, float jumpDistance)
+        public JumpMovementStrategy(float intervalSeconds, float jumpDistance, Vector2 fieldSize)
         {
             _intervalSeconds = intervalSeconds;
             _jumpDistance = jumpDistance;
+            _fieldSize = fieldSize;
         }
 
         public void Move(Transform transform, float deltaTime)
@@ -22,10 +24,7 @@ namespace ZooWorld.Animals.Movement
                 return;
 
             _timer = 0f;
-            var x = Random.Range(-1f, 1f);
-            var z = Random.Range(-1f, 1f);
-            var dir = new Vector3(x, 0f, z);
-
+            var dir = this.GetRandomDirectionXZ();
             if (dir.sqrMagnitude < 0.01f)
             {
                 dir = Vector3.forward;
@@ -34,7 +33,7 @@ namespace ZooWorld.Animals.Movement
             dir.Normalize();
 
             var jump = dir * _jumpDistance;
-            this.MoveTowards(transform, jump);
+            this.MoveTowards(transform, jump, _fieldSize);
         }
     }
 }

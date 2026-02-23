@@ -13,7 +13,6 @@ namespace ZooWorld.Game.Behaviours.Config
         public DietType Diet => _diet;
         public AnimalBehaviour Original => _original;
 
-        public abstract IMovementStrategy CreateMovementStrategy();
+        public abstract IMovementStrategy CreateMovementStrategy(Vector2 fieldSize);
     }
 }
-
