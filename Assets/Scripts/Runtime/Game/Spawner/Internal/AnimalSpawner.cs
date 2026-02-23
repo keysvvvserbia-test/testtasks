@@ -1,0 +1,77 @@
+using System;
+using UnityEngine;
+using Cysharp.Threading.Tasks;
+using Zenject;
+using ZooWorld.Animals;
+using ZooWorld.Foundation;
+using Random = UnityEngine.Random;
+
+namespace ZooWorld.Game
+{
+    public sealed class AnimalSpawner : IAnimalSpawner
+    {
+        private const int SpawnDistance = 40;
+
+        private readonly AnimalFactory _factory;
+        private readonly AnimalConfig[] _configs;
+        private readonly System.Random _random = new();
+
+        private bool _running;
+
+        [Inject]
+        public AnimalSpawner(
+            AnimalConfig[] configs,
+            Transform spawnRoot)
+        {
+            _configs = configs;
+            _factory = new AnimalFactory(spawnRoot);
+        }
+
+        public void StartSpawning()
+        {
+            _running = true;
+            SpawnLoop().Forget();
+        }
+
+        public void StopSpawning()
+        {
+            _running = false;
+        }
+
+        private async UniTaskVoid SpawnLoop()
+        {
+            while (_running && _configs is { Length: > 0 })
+            {
+                var delay = 1f + (float)_random.NextDouble(); // 1–2 seconds
+                await UniTask.Delay(TimeSpan.FromSeconds(delay), ignoreTimeScale: false);
+
+                if (!_running)
+                    break;
+
+                var config = _configs[_random.Next(_configs.Length)];
+                Spawn(config);
+            }
+        }
+
+        private void Spawn(AnimalConfig config)
+        {
+            var behaviour = _factory.Spawn(config.Id, config.Original);
+            if (behaviour == null)
+                throw new NullReferenceException($"Can't spawn animal {config.Id}");
+
+            behaviour.Initialize(GetSpawnPosition(), Quaternion.identity, config, Despawn);
+        }
+
+        private void Despawn(string id, AnimalBehaviour behaviour)
+        {
+            _factory.Retrieve(behaviour, id);
+        }
+
+        private Vector3 GetSpawnPosition()
+        {
+            var x = Random.Range(-SpawnDistance, SpawnDistance);
+            var z = Random.Range(-SpawnDistance, SpawnDistance);
+            return new Vector3(x, 0f, z);
+        }
+    }
+}
