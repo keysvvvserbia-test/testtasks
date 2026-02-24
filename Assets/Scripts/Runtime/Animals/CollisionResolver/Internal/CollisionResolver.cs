@@ -9,7 +9,8 @@ namespace ZooWorld.CollisionResolver
 
         public void Resolve(IAnimal a, IAnimal b)
         {
-            if (!a.IsAlive || !b.IsAlive) return;
+            if (!a.IsAlive || !b.IsAlive)
+                return;
 
             var dietA = a.Diet;
             var dietB = b.Diet;
@@ -29,7 +30,7 @@ namespace ZooWorld.CollisionResolver
                 OnCollision?.Invoke(new HitData(b, a));
                 return;
             }
-            
+
             a.Collision();
             b.Collision();
         }

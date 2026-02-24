@@ -36,12 +36,12 @@ namespace ZooWorld.UI
 
         private void RefreshPreyCounter(int deathCount)
         {
-            _preyCountText.SetText(deathCount.ToString());
+            _preyCountText.text = deathCount.ToString();
         }
 
         private void RefreshPredatorCounter(int predatorCount)
         {
-            _predatorCountText.SetText(predatorCount.ToString());
+            _predatorCountText.text = predatorCount.ToString();
         }
     }
 }
