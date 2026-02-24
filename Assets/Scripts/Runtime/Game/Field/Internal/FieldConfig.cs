@@ -5,8 +5,10 @@ namespace ZooWorld.Game
     [CreateAssetMenu(menuName = "ZooWorld/FieldConfig", fileName = "FieldConfig")]
     public class FieldConfig : ScriptableObject
     {
-        [SerializeField] private Vector2 _size;
+        [SerializeField] private float _heightPlane;
+        [SerializeField][Range(0, .5f)] private float _marginPercent;
 
-        public Vector2 Size => _size;
+        public float HeightPlane => _heightPlane;
+        public float MarginPercent => _marginPercent;
     }
 }

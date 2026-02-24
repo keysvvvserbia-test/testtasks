@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c83c8a399e4754a079a005d356ffca, type: 3}
   m_Name: FieldConfig
   m_EditorClassIdentifier: Assembly-CSharp::ZooWorld.Game.FieldConfig
-  _size: {x: 150, y: 100}
+  _heightPlane: 0
+  _marginPercent: 0.02

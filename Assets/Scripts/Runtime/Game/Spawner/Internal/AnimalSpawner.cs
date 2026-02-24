@@ -11,7 +11,6 @@ namespace ZooWorld.Game
     public sealed class AnimalSpawner : IAnimalSpawner
     {
         private readonly Vector2 _spawnRange;
-
         private readonly AnimalFactory _factory;
         private readonly AnimalConfig[] _configs;
         private readonly System.Random _random = new();
